@@ -16,9 +16,7 @@ Command Sequence
 ## Setup
 
 ``` bash
-mkdir -p ~/workspace && cd ~/workspace/
-git clone git://github.com/ceocoder/dotfiles.git
-cd dotfiles
-./bootstrap
+git clone git://github.com/ceocoder/dotfiles.git .dotfiles
+cd .dotfiles && ./bootstrap
 ```
 
