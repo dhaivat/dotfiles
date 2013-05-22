@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ `uname` == 'Darwin']; then
     echo "Mac OS X detected: installing homebrew"
@@ -7,6 +7,10 @@ if [ `uname` == 'Darwin']; then
     do
         brew install $line
     done < frozen.brew
+else
+    echo "Seems like you are using this not on a Mac"
+    echo "Disabling userspace reattatch"
+    sed -i "s/^set-option/#set-option/" tmux/tmux.conf
 fi
 
 for i in $HOME/.tmux $HOME/.tmux.conf $HOME/.zshrc $HOME/.screenrc $HOME/.vim $HOME/.vimrc; do
@@ -21,3 +25,11 @@ ln -s $PWD/tmux/tmux.conf $HOME/.tmux.conf
 ln -s $PWD/screenrc $HOME/.screenrc
 ln -s $PWD/vim $HOME/.vim
 ln -s $PWD/vimrc $HOME/.vimrc
+
+echo "p.s. I've tested this on tmux 1.8,
+if you see errors like,
+    usage: bind-key [-cnr] [-t key-table] key command [arguments][0/0]
+    unknown option: pane-base-index
+    unknown option: window-status-activity-attr
+consider upgrading to 1.8 or comment out lines from tmux.conf
+"
