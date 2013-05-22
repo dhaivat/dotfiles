@@ -1,11 +1,13 @@
 #!/bin/sh
 
-which brew || ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
-
-while read line
-do
-    brew install $line
-done < frozen.brew
+if [ `uname` == 'Darwin']; then
+    echo "Mac OS X detected: installing homebrew"
+    which brew || ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+    while read line
+    do
+        brew install $line
+    done < frozen.brew
+fi
 
 for i in $HOME/.tmux $HOME/.tmux.conf $HOME/.zshrc $HOME/.screenrc $HOME/.vim $HOME/.vimrc; do
     if [[ ( -e $i ) || ( -h $i ) ]]; then

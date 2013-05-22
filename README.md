@@ -16,7 +16,7 @@ Command Sequence
 ## Setup
 
 ``` bash
-git clone git://github.com/ceocoder/dotfiles.git .dotfiles
-cd .dotfiles && ./bootstrap
+git clone --recursive git://github.com/ceocoder/dotfiles.git .dotfiles
+cd .dotfiles && ./bootstrap.sh
 ```
 
