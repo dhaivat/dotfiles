@@ -1,6 +1,6 @@
 ## Target 
 
-    This setup is for mac + vim + brew + tmux + zsh YMMV
+This setup is for mac + vim + brew + tmux + zsh YMMV
 
 ## Setup
 
