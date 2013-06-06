@@ -8,6 +8,14 @@ if [ `uname` == 'Darwin']; then
         brew install $line
     done < frozen.brew
 else
+    case `lsb_release -i | cut -d':' -f2 | tr -d '\t'` in
+        'CentOS')
+            yum install tmux
+            ;;
+        'Ubuntu')
+            apt-get install tmux
+            ;;
+    esac
     echo "Seems like you are using this not on a Mac"
     echo "Disabling userspace reattatch"
     sed -i "s/^set-option/#set-option/" tmux/tmux.conf
