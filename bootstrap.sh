@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ `uname` == 'Darwin']; then
+if [[ `uname` == 'Darwin' ]]; then
     echo "Mac OS X detected: installing homebrew"
     which brew || ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
     while read line
