@@ -2,18 +2,34 @@
 
 if [[ `uname` == 'Darwin' ]]; then
     echo "Mac OS X detected: installing homebrew"
-    which brew || ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
-    while read line
-    do
-        brew install $line
-    done < frozen.brew
-else
-    case `lsb_release -i | cut -d':' -f2 | tr -d '\t'` in
-        'CentOS')
-            sudo yum install tmux
+    read -p "Mac OS X detected: install homebrew and some useful packages? " b_yn
+    case $b_yn in
+        [Yy]* )
+            which brew || ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+            while read line
+            do
+                brew install $line
+            done < frozen.brew
             ;;
-        'Ubuntu')
-            sudo apt-get install tmux
+        [Nn]* )
+            echo "OK, not installing"
+            ;;
+    esac
+else
+    read -p "Install tmux, zsh, vim? " t_yn
+    case $t_yn in
+        [Yy]* )
+            case `lsb_release -i | cut -d':' -f2 | tr -d '\t'` in
+                'CentOS')
+                    sudo yum install tmux zsh vim
+                    ;;
+                'Ubuntu')
+                    sudo apt-get install tmux zsh vim
+                    ;;
+            esac
+            ;;
+        [Nn]* )
+            echo "Not installing zsh and tmux"
             ;;
     esac
     echo "Seems like you are using this not on a Mac"
@@ -40,10 +56,10 @@ case $yn in
     [Nn]* ) echo "Ok"; ;;
 esac
 
-echo "p.s. I've tested this on tmux 1.8,
+echo -e "p.s. I've tested this on tmux 1.8,
 if you see errors like,
-    usage: bind-key [-cnr] [-t key-table] key command [arguments][0/0]
+    \e[00;32musage: bind-key [-cnr] [-t key-table] key command [arguments][0/0]
     unknown option: pane-base-index
-    unknown option: window-status-activity-attr
+    unknown option: window-status-activity-attr\e[00m]
 consider upgrading to 1.8 or comment out lines from tmux.conf
 "
