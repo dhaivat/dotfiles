@@ -10,10 +10,10 @@ if [ `uname` == 'Darwin']; then
 else
     case `lsb_release -i | cut -d':' -f2 | tr -d '\t'` in
         'CentOS')
-            yum install tmux
+            sudo yum install tmux
             ;;
         'Ubuntu')
-            apt-get install tmux
+            sudo apt-get install tmux
             ;;
     esac
     echo "Seems like you are using this not on a Mac"
