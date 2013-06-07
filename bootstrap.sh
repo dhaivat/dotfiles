@@ -50,7 +50,7 @@ ln -s $PWD/screenrc $HOME/.screenrc
 ln -s $PWD/vim $HOME/.vim
 ln -s $PWD/vimrc $HOME/.vimrc
 
-read -p "Changing default shell to zsh, OK?" yn
+read -p "Changing default shell to zsh, OK? " yn
 case $yn in
     [Yy]* ) chsh -s $(which zsh); ;;
     [Nn]* ) echo "Ok"; ;;
@@ -60,6 +60,6 @@ echo -e "p.s. I've tested this on tmux 1.8,
 if you see errors like,
     \e[00;32musage: bind-key [-cnr] [-t key-table] key command [arguments][0/0]
     unknown option: pane-base-index
-    unknown option: window-status-activity-attr\e[00m]
+    unknown option: window-status-activity-attr\e[00m
 consider upgrading to 1.8 or comment out lines from tmux.conf
 "
