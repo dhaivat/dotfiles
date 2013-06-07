@@ -34,6 +34,12 @@ ln -s $PWD/screenrc $HOME/.screenrc
 ln -s $PWD/vim $HOME/.vim
 ln -s $PWD/vimrc $HOME/.vimrc
 
+read -p "Changing default shell to zsh, OK?" yn
+case $yn in
+    [Yy]* ) chsh -s $(which zsh); ;;
+    [Nn]* ) echo "Ok"; ;;
+esac
+
 echo "p.s. I've tested this on tmux 1.8,
 if you see errors like,
     usage: bind-key [-cnr] [-t key-table] key command [arguments][0/0]
