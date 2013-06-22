@@ -37,10 +37,11 @@ else
     sed -i "s/^set-option/#set-option/" tmux/tmux.conf
 fi
 
+epoch=$(date +"%s")
 for i in $HOME/.tmux $HOME/.tmux.conf $HOME/.zshrc $HOME/.screenrc $HOME/.vim $HOME/.vimrc; do
     if [[ ( -e $i ) || ( -h $i ) ]]; then
         echo "renaming ${i} to ${i}.old"
-        mv "${i}" "${i}.old" || die "Could not move ${i} to ${i}.old"
+        mv "${i}" "${i}.${epoch}.old" || die "Could not move ${i} to ${i}.old"
     fi
 done
 
