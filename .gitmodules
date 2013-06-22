@@ -4,3 +4,9 @@
 [submodule "tmux"]
 	path = tmux
 	url = git@github.com:ceocoder/tmuxrc.git
+[submodule "vim/bundle/ctrlp.vim"]
+	path = vim/bundle/ctrlp.vim
+	url = git@github.com:ceocoder/ctrlp.vim.git
+[submodule "vim/bundle/syntastic"]
+	path = vim/bundle/syntastic
+	url = git@github.com:ceocoder/syntastic.git

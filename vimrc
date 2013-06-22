@@ -3,8 +3,9 @@ set runtimepath=~/.vim,$VIMRUNTIME,~/.vim/after
 "source $VIMRUNTIME/mswin.vim
 
 " Use pathogen.vim to manage and load plugins
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+execute pathogen#infect()
+" call pathogen#runtime_append_all_bundles()
+" call pathogen#helptags()
 
 "
 " appearance options
