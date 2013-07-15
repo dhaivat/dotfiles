@@ -21,6 +21,9 @@ set t_Co=256
 "colorscheme 
 colorscheme marklar
 
+" python mode
+let g:pymode_folding = 0
+
 if has("gui_running")
    " set default size: 90x35
    set columns=90

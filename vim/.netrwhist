@@ -1,10 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =8
-let g:netrw_dirhist_1='/Users/dhaivat.pandit/workspace/vagrant/baseubuntu/definitions'
-let g:netrw_dirhist_2='/Users/dhaivat.pandit/.ssh'
-let g:netrw_dirhist_3='/Users/dhaivat.pandit/.oh-my-zsh'
-let g:netrw_dirhist_4='/Users/dhaivat.pandit/.tmux'
-let g:netrw_dirhist_5='/Users/dhaivat.pandit/.tmux/vendor/tmux-colors-solarized'
-let g:netrw_dirhist_6='/Users/dhaivat.pandit/.tmux'
-let g:netrw_dirhist_7='/Users/dhaivat.pandit/workspace/dig/puppet/modules/timezone/files'
-let g:netrw_dirhist_8='/Users/dhaivat.pandit/workspace/dig/puppet/modules/tabcmd/manifests'
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/Users/dhaivat.pandit/workspace/dig/puppet/modules/etl-framework-oss'
+let g:netrw_dirhist_2='/Users/dhaivat.pandit/workspace/puppet/puppet/modules/virtual-users-for-ldap-servers'
+let g:netrw_dirhist_3='/Users/dhaivat.pandit/workspace/puppet/puppet/modules/rabbitmq'
