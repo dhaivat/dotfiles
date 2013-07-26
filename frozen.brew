@@ -9,6 +9,7 @@ coreutils
 csshx
 ctags
 ec2-api-tools
+fortune
 gettext
 glib
 gnu-getopt
