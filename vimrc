@@ -1,6 +1,4 @@
-set runtimepath=~/.vim,$VIMRUNTIME,~/.vim/after
-" enable clipboard and other Win32 features
-"source $VIMRUNTIME/mswin.vim
+set runtimepath=~/.vim,$VIMRUNTIME,~/.vim/after,$GOROOT/misc/vim
 
 " Use pathogen.vim to manage and load plugins
 execute pathogen#infect()
@@ -65,7 +63,7 @@ else
    set guifont=Envy\ Code\ R\ 14
 endif
 
-set history=50 " keep track of last commands
+set history=100 " keep track of last commands
 set number ruler " show line numbers
 set incsearch " incremental searching on
 set hlsearch " highlight all matches
@@ -116,7 +114,13 @@ noremap <C-E><C-W> :set wrap!<CR>
 " Map Ctrl-M Ctrl-L to expand all folds like in VS
 noremap <C-M><C-L> :%foldopen!<CR>
 " Remap omni-complete to avoid having to type so fast
-inoremap <C-Space> <C-X><C-O>
+" iunmap <C-Space>
+" Mapping to C-@ for mac because iTerm2 and Terminal interprete C-Space as C-@
+" thank you - http://stackoverflow.com/questions/7722177/how-do-i-map-ctrl-x-ctrl-o-to-ctrl-space-in-terminal-vim
+inoremap <C-@> <C-x><C-o>
+" SuperTab will use C-@ as well, works like a charm
+let g:SuperTabDefaultCompletionType = "\<c-x>\<c-o>"
+" inoremap <C-@> <C-Space>
 
 " Windows like movements for long lines with wrap enabled:
 noremap j gj
