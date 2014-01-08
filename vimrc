@@ -5,9 +5,9 @@ execute pathogen#infect()
 " call pathogen#runtime_append_all_bundles()
 " call pathogen#helptags()
 
-"
+
 " appearance options
-"
+
 set bg=dark
 let g:zenburn_high_Contrast = 1
 let g:liquidcarbon_high_contrast = 1
@@ -15,6 +15,7 @@ let g:molokai_original = 1
 let g:Powerline_symbols = 'compatible'
 let g:Powerline_cache_enabled = 1
 let g:Powerline_cache_file = expand('$TMP/Powerline.cache')
+let g:pyflakes_use_quickfix = 0
 set t_Co=256
 "colorscheme 
 colorscheme marklar
@@ -30,6 +31,9 @@ if has("gui_running")
    set guioptions-=m
    set guioptions-=T
 endif
+
+" puppet macro
+let @p='gg:%s/\( =>.*[^,]\)$/\1,/g'
 
 set modeline
 set expandtab " expand tabs
@@ -83,7 +87,9 @@ set encoding=utf8
 set fileencoding=utf8
 " enable visible whitespace
 set listchars=tab:»·,trail:·,precedes:<,extends:>
+
 set list
+
 "set mouse=nicr
 
 " no beep
@@ -121,6 +127,13 @@ inoremap <C-@> <C-x><C-o>
 " SuperTab will use C-@ as well, works like a charm
 let g:SuperTabDefaultCompletionType = "\<c-x>\<c-o>"
 " inoremap <C-@> <C-Space>
+"
+
+" C-W moves faster
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 " Windows like movements for long lines with wrap enabled:
 noremap j gj
@@ -240,6 +253,7 @@ function! MyTabLabel(n)
   return bufname(buflist[winnr - 1])
 endfunction
 
+" Split/Vsplit multiple files
 function! Sp(dir, ...)
   let split = 'sp'
   if a:dir == '1'
@@ -262,3 +276,8 @@ endfunction
 
 com! -nargs=* -complete=file Sp call Sp(0, <f-args>)                                     
 com! -nargs=* -complete=file Vsp call Sp(1, <f-args>)) 
+
+
+" close scratch/preview buffer after omnicomplete insert
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
