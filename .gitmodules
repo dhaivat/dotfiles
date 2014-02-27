@@ -3,7 +3,7 @@
 	url = git://github.com/ceocoder/oh-my-zsh.git
 [submodule "tmux"]
 	path = tmux
-	url = git://github.com/ceocoder/tmuxrc.git
+	url = https://github.com/ceocoder/tmuxrc.git
 [submodule "vim/bundle/ctrlp.vim"]
 	path = vim/bundle/ctrlp.vim
 	url = git://github.com/ceocoder/ctrlp.vim.git

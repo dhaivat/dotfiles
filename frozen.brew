@@ -21,7 +21,6 @@ libffi
 libgpg-error
 lighttpd
 mercurial
-mongodb
 p7zip
 pcre
 pkg-config
@@ -36,3 +35,4 @@ vimpager
 wget
 xclip
 xz
+vim

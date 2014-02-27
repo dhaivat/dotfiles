@@ -35,6 +35,9 @@ endif
 " puppet macro
 let @p='gg:%s/\( =>.*[^,]\)$/\1,/g'
 
+" notes saved in dropbox
+let g:notes_directories = ['~/Dropbox/notes']
+
 set modeline
 set expandtab " expand tabs
 set tabstop=4     " tab size = 2
@@ -47,6 +50,7 @@ set pastetoggle=<F2>
 set virtualedit=block
 set clipboard+=unnamed
 set showmatch " Show matching braces.
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.class,*.pyc
 
 " Line wrapping on by default
 set wrap
@@ -126,6 +130,7 @@ noremap <C-M><C-L> :%foldopen!<CR>
 inoremap <C-@> <C-x><C-o>
 " SuperTab will use C-@ as well, works like a charm
 let g:SuperTabDefaultCompletionType = "\<c-x>\<c-o>"
+let g:EclimCompletionMethod = 'omnifunc'
 " inoremap <C-@> <C-Space>
 "
 
@@ -281,3 +286,6 @@ com! -nargs=* -complete=file Vsp call Sp(1, <f-args>))
 " close scratch/preview buffer after omnicomplete insert
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+" detect nodtes
+autocmd BufEnter ~/Dropbox/notes/* :set syntax=notes

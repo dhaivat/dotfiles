@@ -5,7 +5,7 @@ if [[ `uname` == 'Darwin' ]]; then
     read -p "Mac OS X detected: install homebrew and some useful packages? " b_yn
     case $b_yn in
         [Yy]* )
-            which brew || ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+            which brew || ruby -e "$(curl -fsSL https://raw2.github.com/Homebrew/homebrew/go/install)"
             while read line
             do
                 brew install $line
