@@ -19,5 +19,5 @@ Command Sequence
 cd ~/
 git clone --recursive git://github.com/ceocoder/dotfiles.git .dotfiles
 cd .dotfiles && ./bootstrap.sh
+vim -c "BundleInstall"
 ```
-
