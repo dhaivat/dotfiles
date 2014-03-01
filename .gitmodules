@@ -4,21 +4,3 @@
 [submodule "tmux"]
 	path = tmux
 	url = https://github.com/ceocoder/tmuxrc.git
-[submodule "vim/bundle/ctrlp.vim"]
-	path = vim/bundle/ctrlp.vim
-	url = git://github.com/ceocoder/ctrlp.vim.git
-[submodule "vim/bundle/syntastic"]
-	path = vim/bundle/syntastic
-	url = git://github.com/ceocoder/syntastic.git
-[submodule "vim/bundle/jedi-vim"]
-	path = vim/bundle/jedi-vim
-	url = git://github.com/davidhalter/jedi-vim.git
-[submodule "vim/bundle/vim-fugitive"]
-	path = vim/bundle/vim-fugitive
-	url = git://github.com/tpope/vim-fugitive.git
-[submodule "vim/bundle/vim-misc"]
-	path = vim/bundle/vim-misc
-	url = git://github.com/xolox/vim-misc.git
-[submodule "vim/bundle/vim-notes"]
-	path = vim/bundle/vim-notes
-	url = git://github.com/xolox/vim-notes.git
