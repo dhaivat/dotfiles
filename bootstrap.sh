@@ -1,5 +1,7 @@
 #!/bin/bash
 
+git clone --recursive git://github.com/ceocoder/dotfiles.git ~/.dotfiles && echo "Cloned dotfiles" || echo "Looks like dotfiles exist"
+
 if [[ `uname` == 'Darwin' ]]; then
     echo "Mac OS X detected: installing homebrew"
     read -p "Mac OS X detected: install homebrew and some useful packages? " b_yn
@@ -45,11 +47,11 @@ for i in $HOME/.tmux $HOME/.tmux.conf $HOME/.zshrc $HOME/.screenrc $HOME/.vim $H
     fi
 done
 
-ln -s $PWD/oh-my-zsh/templates/zshrc.zsh-template $HOME/.zshrc
-ln -s $PWD/tmux/tmux.conf $HOME/.tmux.conf
-ln -s $PWD/screenrc $HOME/.screenrc
-ln -s $PWD/vim $HOME/.vim
-ln -s $PWD/vimrc $HOME/.vimrc
+ln -sv $PWD/oh-my-zsh/templates/zshrc.zsh-template $HOME/.zshrc
+ln -sv $PWD/tmux/tmux.conf $HOME/.tmux.conf
+ln -sv $PWD/screenrc $HOME/.screenrc
+ln -sv $PWD/vim $HOME/.vim
+ln -sv $PWD/vimrc $HOME/.vimrc
 
 read -p "Changing default shell to zsh, OK? " yn
 case $yn in

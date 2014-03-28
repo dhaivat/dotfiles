@@ -31,11 +31,13 @@ Bundle 'jtratner/vim-flavored-markdown'
 Bundle 'itspriddle/vim-jquery'
 Bundle 'atourino/jinja.vim'
 Bundle 'ntpeters/vim-better-whitespace'
+Bundle 't9md/vim-chef'
 
 " Python
-Bundle 'davidhalter/jedi-vim'
+Bundle 'klen/python-mode'
 Bundle 'nvie/vim-flake8'
 Bundle 'fs111/pydoc.vim'
+
 
 " Ruby
 Bundle "vim-ruby/vim-ruby"
@@ -82,7 +84,6 @@ set backspace=indent,eol,start " Make backspace behave normally.
 set directory=/tmp// " swap files
 set backupskip=/tmp/*,/private/tmp/*
 set ffs=unix,dos,mac "Default file types
-set nowrap        " don't wrap lines
 set showmatch     " set show matching parenthesis
 set ignorecase    " ignore case when searching
 set smartcase     " ignore case if search pattern is all lowercase,
@@ -177,7 +178,7 @@ autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
 
 " Python configurations
 autocmd FileType python setlocal shiftwidth=4 expandtab tabstop=4 softtabstop=4
-autocmd FileType python setlocal colorcolumn=80
+autocmd FileType python setlocal colorcolumn=100
 autocmd FileType python map <buffer> <F4> :call Flake8()<CR>
 autocmd FileType python autocmd BufWritePre * :%s/\s\+$//e
 autocmd FileType python set omnifunc=pythoncomplete#Complete
@@ -196,6 +197,8 @@ au BufNewFile,BufReadPost *.jinja* setlocal filetype=htmljinja
 
 " Get rid of search hilighting with ,/
 nnoremap <silent> <leader>/ :nohlsearch<CR>
+nnoremap <silent> <leader><leader> :TComment<CR>
+nnoremap <silent> <leader>] :PymodeLint<CR>
 
 " Fix those pesky situations where you edit & need sudo to save
 cmap w!! w !sudo tee % >/dev/null
@@ -212,6 +215,7 @@ let g:notes_directories = ['~/Dropbox/notes']
 
 " Pyflakes
 "autocmd BufWritePost *.py call Flake8()
+let g:pyflakes_use_quickfix = 0
 let g:flake8_ignore="E128,E501"
 let g:syntastic_python_checker_args='--ignore=E501,E128'
 
@@ -264,3 +268,14 @@ map <leader>t :NERDTreeToggle<CR>
 let NERDTreeIgnore=['\.pyc$', '\~$']
 let g:nerdtree_tabs_open_on_gui_startup = 0
 let g:nerdtree_tabs_open_on_console_startup = 0
+
+" close scratch/preview buffer after omnicomplete insert
+let g:pyflakes_use_quickfix = 0
+let g:pymode_lint_on_write = 0
+let g:pymode_syntax_all = 1
+let g:pymode_run_bind = '<leader>r'
+let g:pymode_rope_goto_definition_bind = '<leader>d'
+let g:pymode_rope_show_doc_bind = '<leader>o'
+let g:pymode_rope_rename_bind = '<leader>f'
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
