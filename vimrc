@@ -34,6 +34,7 @@ Bundle 'ntpeters/vim-better-whitespace'
 Bundle 't9md/vim-chef'
 
 " Python
+Bundle 'davidhalter/jedi-vim'
 Bundle 'klen/python-mode'
 Bundle 'nvie/vim-flake8'
 Bundle 'fs111/pydoc.vim'
@@ -181,16 +182,12 @@ autocmd FileType python setlocal shiftwidth=4 expandtab tabstop=4 softtabstop=4
 autocmd FileType python setlocal colorcolumn=100
 autocmd FileType python map <buffer> <F4> :call Flake8()<CR>
 autocmd FileType python autocmd BufWritePre * :%s/\s\+$//e
-autocmd FileType python set omnifunc=pythoncomplete#Complete
 
 " Javascript configurations
 au BufNewFile,BufReadPost *.js setlocal shiftwidth=2 expandtab
 
 " Ensure that JSON files have their filetype properly set.
 au BufRead,BufNewFile *.json set filetype=json
-
-" Puppet configurations
-au FileType puppet setlocal noexpandtab
 
 " Get jinja filetype selection working correctly for *.jinja.html files.
 au BufNewFile,BufReadPost *.jinja* setlocal filetype=htmljinja
@@ -271,11 +268,11 @@ let g:nerdtree_tabs_open_on_console_startup = 0
 
 " close scratch/preview buffer after omnicomplete insert
 let g:pyflakes_use_quickfix = 0
-let g:pymode_lint_on_write = 0
-let g:pymode_syntax_all = 1
-let g:pymode_run_bind = '<leader>r'
-let g:pymode_rope_goto_definition_bind = '<leader>d'
-let g:pymode_rope_show_doc_bind = '<leader>o'
-let g:pymode_rope_rename_bind = '<leader>f'
+let g:pymode_rope_completion = 0
+let g:pymode_syntax_all = 0
+let g:jedi#use_tabs_not_buffers = 0
+let g:jedi#use_splits_not_buffers = "right"
+let g:jedi#rename_command = ""
+let g:pymode_rope_rename_bind = '<leader>r'
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
