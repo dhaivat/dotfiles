@@ -39,6 +39,8 @@ Bundle 'klen/python-mode'
 Bundle 'nvie/vim-flake8'
 Bundle 'fs111/pydoc.vim'
 
+" Go
+Bundle 'fatih/vim-go'
 
 " Ruby
 Bundle "vim-ruby/vim-ruby"
@@ -274,5 +276,18 @@ let g:jedi#use_tabs_not_buffers = 0
 let g:jedi#use_splits_not_buffers = "right"
 let g:jedi#rename_command = ""
 let g:pymode_rope_rename_bind = '<leader>r'
+
+" go mappings
+autocmd filetype go setlocal colorcolumn=80 invlist
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <Leader>i <Plug>(go-import)
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
