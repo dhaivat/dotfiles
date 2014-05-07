@@ -12,7 +12,7 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 
 " System
-Bundle 'ervandew/supertab'
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/Gist.vim'
 Bundle 'rking/ag.vim'
 Bundle 'tomtom/tcomment_vim'
@@ -23,6 +23,8 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'xolox/vim-notes'
 Bundle 'xolox/vim-misc'
+Bundle 'SirVer/ultisnips'
+Bundle 'honza/vim-snippets'
 
 " Syntax
 Bundle 'leshill/vim-json'
@@ -32,6 +34,7 @@ Bundle 'itspriddle/vim-jquery'
 Bundle 'atourino/jinja.vim'
 Bundle 'ntpeters/vim-better-whitespace'
 Bundle 't9md/vim-chef'
+Bundle 'majutsushi/tagbar'
 
 " Python
 Bundle 'davidhalter/jedi-vim'
@@ -145,7 +148,6 @@ nnoremap <C-H> <C-W><C-H>
 " thank you - http://stackoverflow.com/questions/7722177/how-do-i-map-ctrl-x-ctrl-o-to-ctrl-space-in-terminal-vim
 inoremap <C-@> <C-x><C-o>
 " SuperTab will use C-@ as well, works like a charm
-let g:SuperTabDefaultCompletionType = "\<c-x>\<c-o>"
 let g:EclimCompletionMethod = 'omnifunc'
 
 "
@@ -276,6 +278,11 @@ let g:jedi#use_tabs_not_buffers = 0
 let g:jedi#use_splits_not_buffers = "right"
 let g:jedi#rename_command = ""
 let g:pymode_rope_rename_bind = '<leader>r'
+
+" So this works with YCM
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " go mappings
 autocmd filetype go setlocal colorcolumn=80 invlist
