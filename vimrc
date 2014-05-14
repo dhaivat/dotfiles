@@ -6,52 +6,52 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 " let Vundle manage Vundle
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
 " Git
-Bundle 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'
 
 " System
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'vim-scripts/Gist.vim'
-Bundle 'rking/ag.vim'
-Bundle 'tomtom/tcomment_vim'
-Bundle 'tpope/vim-surround'
-Bundle 'scrooloose/syntastic'
-Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
-Bundle 'xolox/vim-notes'
-Bundle 'xolox/vim-misc'
-Bundle 'SirVer/ultisnips'
-Bundle 'honza/vim-snippets'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'vim-scripts/Gist.vim'
+Plugin 'rking/ag.vim'
+Plugin 'tomtom/tcomment_vim'
+Plugin 'tpope/vim-surround'
+Plugin 'scrooloose/syntastic'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'xolox/vim-notes'
+Plugin 'xolox/vim-misc'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 
 " Syntax
-Bundle 'leshill/vim-json'
-Bundle 'puppetlabs/puppet-syntax-vim'
-Bundle 'jtratner/vim-flavored-markdown'
-Bundle 'itspriddle/vim-jquery'
-Bundle 'atourino/jinja.vim'
-Bundle 'ntpeters/vim-better-whitespace'
-Bundle 't9md/vim-chef'
-Bundle 'majutsushi/tagbar'
+Plugin 'leshill/vim-json'
+Plugin 'puppetlabs/puppet-syntax-vim'
+Plugin 'jtratner/vim-flavored-markdown'
+Plugin 'itspriddle/vim-jquery'
+Plugin 'atourino/jinja.vim'
+Plugin 'ntpeters/vim-better-whitespace'
+Plugin 't9md/vim-chef'
+Plugin 'majutsushi/tagbar'
 
 " Python
-Bundle 'davidhalter/jedi-vim'
-Bundle 'klen/python-mode'
-Bundle 'nvie/vim-flake8'
-Bundle 'fs111/pydoc.vim'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'klen/python-mode'
+Plugin 'nvie/vim-flake8'
+Plugin 'fs111/pydoc.vim'
 
 " Go
-Bundle 'fatih/vim-go'
+Plugin 'fatih/vim-go'
 
 " Ruby
-Bundle "vim-ruby/vim-ruby"
-Bundle 'tpope/vim-endwise'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'tpope/vim-endwise'
 
 " Fun, but not useful
-Bundle 'flazz/vim-colorschemes'
-Bundle 'skammer/vim-css-color'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'skammer/vim-css-color'
 
 " Required after vundle plugin definitions
 filetype plugin indent on
@@ -293,7 +293,9 @@ au FileType go nmap <Leader>i <Plug>(go-import)
 au FileType go nmap <Leader>gd <Plug>(go-doc)
 au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
 au FileType go nmap <Leader>ds <Plug>(go-def-split)
-au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+" Only change from standard defs on @fatih's page - to match
+" behaviour from jedi-vim
+au FileType go nmap <Leader>d <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
