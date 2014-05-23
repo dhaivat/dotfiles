@@ -284,6 +284,15 @@ let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
+" jedi-vim + YCM
+
+au FileType python let g:jedi#auto_vim_configuration = 0
+au FileType python let g:jedi#popup_on_dot = 0
+au FileType python let g:jedi#popup_select_first = 0
+au FileType python let g:jedi#completions_enabled = 0
+au FileType python let g:jedi#completions_command = ""
+au FileType python let g:jedi#show_call_signatures = "1"
+
 " go mappings
 autocmd filetype go setlocal colorcolumn=80 invlist
 au FileType go nmap <leader>r <Plug>(go-run)
