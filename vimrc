@@ -201,6 +201,40 @@ nnoremap <silent> <leader>/ :nohlsearch<CR>
 nnoremap <silent> <leader><leader> :TComment<CR>
 nnoremap <silent> <leader>] :PymodeLint<CR>
 
+" Enable all python highlightings
+let g:pymode_syntax_all = 1
+
+" Highlight "print" as function
+let g:pymode_syntax_print_as_function = 0
+
+" Highlight indentation errors
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+
+" Highlight trailing spaces
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+
+" Highlight string formatting
+let g:pymode_syntax_string_formatting = g:pymode_syntax_all
+
+" Highlight str.format syntax
+let g:pymode_syntax_string_format = g:pymode_syntax_all
+
+" Highlight string.Template syntax
+let g:pymode_syntax_string_templates = g:pymode_syntax_all
+
+" Highlight doc-tests
+let g:pymode_syntax_doctests = g:pymode_syntax_all
+
+" Highlight builtin objects (__doc__, self, etc)
+let g:pymode_syntax_builtin_objs = g:pymode_syntax_all
+
+" Highlight builtin functions
+let g:pymode_syntax_builtin_funcs = g:pymode_syntax_all
+
+" Highlight exceptions
+let g:pymode_syntax_highlight_exceptions = g:pymode_syntax_all
+
+
 " Fix those pesky situations where you edit & need sudo to save
 cmap w!! w !sudo tee % >/dev/null
 
@@ -272,17 +306,18 @@ let g:nerdtree_tabs_open_on_console_startup = 0
 
 " close scratch/preview buffer after omnicomplete insert
 let g:pyflakes_use_quickfix = 0
-let g:pymode_rope_completion = 0
+let g:pymode_rope = 0
 let g:pymode_syntax_all = 0
 let g:jedi#use_tabs_not_buffers = 0
 let g:jedi#use_splits_not_buffers = "right"
 let g:jedi#rename_command = ""
 let g:pymode_rope_rename_bind = '<leader>r'
+let g:pymode_lint_checkers = ['pyflakes', 'mccabe']
 
 " So this works with YCM
 let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 
 " jedi-vim + YCM
 
@@ -292,6 +327,7 @@ au FileType python let g:jedi#popup_select_first = 0
 au FileType python let g:jedi#completions_enabled = 0
 au FileType python let g:jedi#completions_command = ""
 au FileType python let g:jedi#show_call_signatures = "1"
+
 
 " go mappings
 autocmd filetype go setlocal colorcolumn=80 invlist

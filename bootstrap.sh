@@ -53,6 +53,10 @@ ln -sv $PWD/screenrc $HOME/.screenrc
 ln -sv $PWD/vim $HOME/.vim
 ln -sv $PWD/vimrc $HOME/.vimrc
 
+echo "Bootstrapping Vim Plugins"
+vim +BundleInstall
+cd ~/.vim/bundle/YouCompleteMe && ./install.sh
+
 read -p "Changing default shell to zsh, OK? " yn
 case $yn in
     [Yy]* ) chsh -s $(which zsh); ;;
