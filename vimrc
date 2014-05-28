@@ -54,6 +54,8 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'skammer/vim-css-color'
 
 " Required after vundle plugin definitions
+call vundle#end()            " required
+filetype plugin indent on
 filetype plugin indent on
 
 " Wildmenu
