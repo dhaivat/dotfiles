@@ -4,6 +4,7 @@ filetype off                   " required!
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
+let g:vundle_lazy_load=1
 
 " let Vundle manage Vundle
 Plugin 'gmarik/vundle'
@@ -25,6 +26,7 @@ Plugin 'xolox/vim-notes'
 Plugin 'xolox/vim-misc'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
+Plugin 'bling/vim-airline'
 
 " Syntax
 Plugin 'leshill/vim-json'
@@ -49,13 +51,15 @@ Plugin 'fatih/vim-go'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-endwise'
 
+" Pig
+Plugin 'motus/pig.vim'
+
 " Fun, but not useful
 Plugin 'flazz/vim-colorschemes'
 Plugin 'skammer/vim-css-color'
 
 " Required after vundle plugin definitions
 call vundle#end()            " required
-filetype plugin indent on
 filetype plugin indent on
 
 " Wildmenu
@@ -114,6 +118,12 @@ endif
 " Default background & theme
 set background=dark
 colorscheme marklar
+let g:airline_theme='molokai'
+
+if has("gui_running")
+  set guioptions=-t
+  colorscheme obsidian2
+endif
 
 " Special characters for hilighting non-priting spaces/tabs/etc.
 set list listchars=tab:»\ ,trail:·
@@ -150,7 +160,6 @@ nnoremap <C-H> <C-W><C-H>
 " thank you - http://stackoverflow.com/questions/7722177/how-do-i-map-ctrl-x-ctrl-o-to-ctrl-space-in-terminal-vim
 inoremap <C-@> <C-x><C-o>
 " SuperTab will use C-@ as well, works like a charm
-let g:EclimCompletionMethod = 'omnifunc'
 
 "
 " Enable spellchecking conditionally
@@ -267,6 +276,7 @@ nnoremap <silent> <F2> :TagbarToggle<CR>
 let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
 let g:tagbar_autoshowtag = 1
 let g:tagbar_autofocus = 1
+let g:tagbar_width = 30
 
 " crtl-p
 let g:ctrlp_map = '<c-p>'
@@ -275,7 +285,7 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-stand
 let g:ctrlp_custom_ignore = '\v\~$|\.(o|swp|pyc|wav|mp3|ogg|blend)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])|__init__\.py'
 let g:ctrlp_root_markers = ['.git']
 "let g:ctrlp_working_path_mode = 'ra' " search for nearest ancestor like .git, .hg, and the directory of the current file
-let g:ctrlp_match_window_bottom = 0 " show the match window at the top of the screen
+let g:ctrlp_match_window_bottom = 1 " show the match window at the top of the screen
 let g:ctrlp_max_height = 10 " maxiumum height of match window
 let g:ctrlp_switch_buffer = 'et' " jump to a file if it's open already
 let g:ctrlp_use_caching = 1 " enable caching
@@ -312,7 +322,6 @@ let g:pymode_rope = 0
 let g:pymode_syntax_all = 0
 let g:jedi#use_tabs_not_buffers = 0
 let g:jedi#use_splits_not_buffers = "right"
-let g:jedi#rename_command = ""
 let g:pymode_rope_rename_bind = '<leader>r'
 let g:pymode_lint_checkers = ['pyflakes', 'mccabe']
 
@@ -332,7 +341,7 @@ au FileType python let g:jedi#show_call_signatures = "1"
 
 
 " go mappings
-autocmd filetype go setlocal colorcolumn=80 invlist
+au filetype go setlocal colorcolumn=100 invlist
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t <Plug>(go-test)
@@ -345,5 +354,6 @@ au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>d <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+au CursorMovedI * if pumvisible() == 0|pclose|endif
+au InsertLeave * if pumvisible() == 0|pclose|endif
+set shell=/bin/bash
