@@ -252,6 +252,9 @@ cmap w!! w !sudo tee % >/dev/null
 
 " Plugin Configurations
 """""""""""""""""""""""
+" Disable Java syntastic checker - too slow.
+let g:syntastic_enable_java_checker = 0
+
 " puppet macro
 let @p='gg:%s/\( =>.*[^,]\)$/\1,/g'
 
@@ -280,9 +283,9 @@ let g:tagbar_width = 30
 
 " crtl-p
 let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'  " search anything (in files, buffers and MRU files at the same time.)
+let g:ctrlp_cmd = 'CtrlPMixed'  " search anything (in files, buffers and MRU files at the same time.)
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard']
-let g:ctrlp_custom_ignore = '\v\~$|\.(o|swp|pyc|wav|mp3|ogg|blend)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])|__init__\.py'
+let g:ctrlp_custom_ignore = '\v\~$|\.(o|swp|pyc|wav|mp3|ogg|blend)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
 let g:ctrlp_root_markers = ['.git']
 "let g:ctrlp_working_path_mode = 'ra' " search for nearest ancestor like .git, .hg, and the directory of the current file
 let g:ctrlp_match_window_bottom = 1 " show the match window at the top of the screen
@@ -322,7 +325,6 @@ let g:pymode_rope = 0
 let g:pymode_syntax_all = 0
 let g:jedi#use_tabs_not_buffers = 0
 let g:jedi#use_splits_not_buffers = "right"
-let g:pymode_rope_rename_bind = '<leader>r'
 let g:pymode_lint_checkers = ['pyflakes', 'mccabe']
 
 " So this works with YCM
@@ -353,6 +355,9 @@ au FileType go nmap <Leader>ds <Plug>(go-def-split)
 " behaviour from jedi-vim
 au FileType go nmap <Leader>d <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+au FileType go setlocal noexpandtab
+au FileType go setlocal list listchars=tab:\ \ 
+au FileType go autocmd BufWritePre <buffer> GoFmt
 
 au CursorMovedI * if pumvisible() == 0|pclose|endif
 au InsertLeave * if pumvisible() == 0|pclose|endif

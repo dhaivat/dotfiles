@@ -7,11 +7,17 @@ if [[ `uname` == 'Darwin' ]]; then
     read -p "Mac OS X detected: install homebrew and some useful packages? " b_yn
     case $b_yn in
         [Yy]* )
-            which brew || ruby -e "$(curl -fsSL https://raw2.github.com/Homebrew/homebrew/go/install)"
+            which brew || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+            brew tap caskroom/cask
+            brew install brew-cask
             while read line
             do
                 brew install $line
             done < frozen.brew
+            while read line
+            do
+                HOMEBREW_CASK_OPTS="--appdir=/Applications" brew cask install $line
+            done < frozen.cask
             ;;
         [Nn]* )
             echo "OK, not installing"
@@ -55,7 +61,7 @@ ln -sv $PWD/vimrc $HOME/.vimrc
 ln -sv /usr/local/bin/vim /usr/local/bin/vi
 
 echo "Bootstrapping Vim Plugins"
-/usr/local/bin/vim +BundleInstall
+/usr/local/bin/vim  -c "BundleInstall" -c "q" -c "q"
 cd ~/.vim/bundle/YouCompleteMe && ./install.sh
 
 read -p "Changing default shell to zsh, OK? " yn
@@ -63,6 +69,12 @@ case $yn in
     [Yy]* ) chsh -s $(which zsh); ;;
     [Nn]* ) echo "Ok"; ;;
 esac
+
+echo "Installing Monaco Powerline font - click install"
+open Monaco-Powerline.otf
+
+echo "Installing custom iTerm2 color theme"
+open iterm2.itermcolors
 
 echo -e "p.s. I've tested this on tmux 1.8,
 if you see errors like,

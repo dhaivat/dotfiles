@@ -1,5 +1,4 @@
 ack
-aircrack-ng
 autoconf
 automake
 bsdmake
@@ -8,6 +7,7 @@ colordiff
 coreutils
 csshx
 ctags
+cowsay
 ec2-api-tools
 fortune
 gettext
