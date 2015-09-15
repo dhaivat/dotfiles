@@ -58,6 +58,9 @@ Plugin 'motus/pig.vim'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'skammer/vim-css-color'
 
+" Tmux + Repl
+Plugin 'jgdavey/tslime.vim'
+
 " Required after vundle plugin definitions
 call vundle#end()            " required
 filetype plugin indent on
@@ -108,7 +111,7 @@ set undolevels=1000      " use many muchos levels of undo
 set title                " change the terminal's title
 set visualbell           " don't beep
 set noerrorbells         " don't beep
-set guifont=Inconsolata\ for\ Powerline:h13
+set guifont=Hack:h15
 
 " Remove the toolbar if we're running under a GUI (e.g. MacVIM).
 if has("gui_running")
@@ -163,19 +166,20 @@ inoremap <C-@> <C-x><C-o>
 
 "
 " Enable spellchecking conditionally
-"
+" spell check english
 map <Leader>se :setlocal spell spelllang=en_us<CR>
+" spell check spanish
 map <Leader>ss :setlocal spell spelllang=es_es<CR>
 map <Leader>sn :setlocal nospell<CR>
 
 
 " General auto-commands
-autocmd FileType * setlocal colorcolumn=0
-" autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+au FileType * setlocal colorcolumn=0
+" au ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 
 " Get rid of trailing whitespace highlighting in mutt.
-autocmd FileType mail highlight clear ExtraWhitespace
-autocmd FileType mail setlocal listchars=
+au FileType mail highlight clear ExtraWhitespace
+au FileType mail setlocal listchars=
 
 " Markdown configurations
 augroup markdown
@@ -184,19 +188,13 @@ augroup markdown
 augroup END
 
 " Ruby Configurations
-autocmd filetype ruby setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2 shiftwidth=2 colorcolumn=80
+au filetype ruby setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2 shiftwidth=2 colorcolumn=80
 
 " PHP Configurations
-autocmd FileType php setlocal colorcolumn=100
+au FileType php setlocal colorcolumn=100
 
 " HTML configurations
-autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
-
-" Python configurations
-autocmd FileType python setlocal shiftwidth=4 expandtab tabstop=4 softtabstop=4
-autocmd FileType python setlocal colorcolumn=100
-autocmd FileType python map <buffer> <F4> :call Flake8()<CR>
-autocmd FileType python autocmd BufWritePre * :%s/\s\+$//e
+au FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
 
 " Javascript configurations
 au BufNewFile,BufReadPost *.js setlocal shiftwidth=2 expandtab
@@ -208,9 +206,8 @@ au BufRead,BufNewFile *.json set filetype=json
 au BufNewFile,BufReadPost *.jinja* setlocal filetype=htmljinja
 
 " Get rid of search hilighting with ,/
-nnoremap <silent> <leader>/ :nohlsearch<CR>
-nnoremap <silent> <leader><leader> :TComment<CR>
-nnoremap <silent> <leader>] :PymodeLint<CR>
+nnoremap <silent> <Leader>/ :nohlsearch<CR>
+nnoremap <silent> <Leader><Leader> :TComment<CR>
 
 " Enable all python highlightings
 let g:pymode_syntax_all = 1
@@ -260,10 +257,10 @@ let @p='gg:%s/\( =>.*[^,]\)$/\1,/g'
 
 
 " notes saved in dropbox
-let g:notes_directories = ['~/Dropbox/notes']
+let g:notes_directories = ['~/Dropbox/vim-notes']
 
 " Pyflakes
-"autocmd BufWritePost *.py call Flake8()
+"au BufWritePost *.py call Flake8()
 let g:pyflakes_use_quickfix = 0
 let g:flake8_ignore="E128,E501"
 let g:syntastic_python_checker_args='--ignore=E501,E128'
@@ -287,7 +284,7 @@ let g:ctrlp_cmd = 'CtrlPMixed'  " search anything (in files, buffers and MRU fil
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard']
 let g:ctrlp_custom_ignore = '\v\~$|\.(o|swp|pyc|wav|mp3|ogg|blend)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
 let g:ctrlp_root_markers = ['.git']
-"let g:ctrlp_working_path_mode = 'ra' " search for nearest ancestor like .git, .hg, and the directory of the current file
+let g:ctrlp_working_path_mode = 'c' " search for nearest ancestor like .git, .hg, and the directory of the current file
 let g:ctrlp_match_window_bottom = 1 " show the match window at the top of the screen
 let g:ctrlp_max_height = 10 " maxiumum height of match window
 let g:ctrlp_switch_buffer = 'et' " jump to a file if it's open already
@@ -314,7 +311,7 @@ if !exists('g:airline_symbols')
 endif
 
 " NerdTree
-map <leader>t :NERDTreeToggle<CR>
+map <C-t>  :NERDTreeToggle<CR>
 let NERDTreeIgnore=['\.pyc$', '\~$']
 let g:nerdtree_tabs_open_on_gui_startup = 0
 let g:nerdtree_tabs_open_on_console_startup = 0
@@ -333,32 +330,43 @@ let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 
 " jedi-vim + YCM
-
+au FileType python setlocal shiftwidth=4 expandtab tabstop=4 softtabstop=4
+au FileType python setlocal colorcolumn=100
+au FileType python map <buffer> <F4> :call Flake8()<CR>
+au FileType python au BufWritePre * :%s/\s\+$//e
 au FileType python let g:jedi#auto_vim_configuration = 0
 au FileType python let g:jedi#popup_on_dot = 0
 au FileType python let g:jedi#popup_select_first = 0
 au FileType python let g:jedi#completions_enabled = 0
 au FileType python let g:jedi#completions_command = ""
 au FileType python let g:jedi#show_call_signatures = "1"
-
+au FileType python nmap <silent> <Leader>] :PymodeLint<CR>
 
 " go mappings
 au filetype go setlocal colorcolumn=100 invlist
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <Leader>r <Plug>(go-run)
+au FileType go nmap <Leader>b <Plug>(go-build)
+au FileType go nmap <Leader>t <Plug>(go-test)
 au FileType go nmap <Leader>i <Plug>(go-import)
 au FileType go nmap <Leader>gd <Plug>(go-doc)
 au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
 au FileType go nmap <Leader>ds <Plug>(go-def-split)
 " Only change from standard defs on @fatih's page - to match
-" behaviour from jedi-vim
-au FileType go nmap <Leader>d <Plug>(go-def-vertical)
+
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 au FileType go setlocal noexpandtab
 au FileType go setlocal list listchars=tab:\ \ 
-au FileType go autocmd BufWritePre <buffer> GoFmt
+au FileType go au BufWritePre <buffer> GoFmt
 
 au CursorMovedI * if pumvisible() == 0|pclose|endif
 au InsertLeave * if pumvisible() == 0|pclose|endif
-set shell=/bin/bash
+
+" Racket/Scheme
+au FileType lisp,scheme,art setlocal equalprg=scmindent.rkt
+let g:tslime_always_current_session = 1
+let g:tslime_always_current_window = 1
+
+" TsLime
+vmap <C-c><C-c> <Plug>SendSelectionToTmux
+nmap <C-c><C-c> <Plug>NormalModeSendToTmux
+nmap <C-c>r <Plug>SetTmuxVars
