@@ -13,6 +13,7 @@ Plugin 'gmarik/vundle'
 Plugin 'tpope/vim-fugitive'
 
 " System
+Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-scripts/Gist.vim'
 Plugin 'rking/ag.vim'
@@ -20,18 +21,18 @@ Plugin 'tomtom/tcomment_vim'
 Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/syntastic'
 Plugin 'kien/ctrlp.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'xolox/vim-notes'
 Plugin 'xolox/vim-misc'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'bling/vim-airline'
+Plugin 'sjl/gundo.vim'
 
 " Syntax
 Plugin 'leshill/vim-json'
 Plugin 'puppetlabs/puppet-syntax-vim'
-Plugin 'jtratner/vim-flavored-markdown'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 Plugin 'itspriddle/vim-jquery'
 Plugin 'atourino/jinja.vim'
 Plugin 'ntpeters/vim-better-whitespace'
@@ -94,7 +95,7 @@ au VimResized * exe "normal! \<c-w>="
 syntax enable
 set number        " always show line numbers
 set hidden        " Allow un-saved buffers in background
-set clipboard=unnamed " Share system clipboard.
+noremap Y "+y     " Don't yank to system clipboard by default - use Y for that.
 set backspace=indent,eol,start " Make backspace behave normally.
 set directory=/tmp// " swap files
 set backupskip=/tmp/*,/private/tmp/*
@@ -111,7 +112,7 @@ set undolevels=1000      " use many muchos levels of undo
 set title                " change the terminal's title
 set visualbell           " don't beep
 set noerrorbells         " don't beep
-set guifont=Hack:h15
+set guifont=Hack:h13
 
 " Remove the toolbar if we're running under a GUI (e.g. MacVIM).
 if has("gui_running")
@@ -194,7 +195,8 @@ au filetype ruby setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2 shiftwi
 au FileType php setlocal colorcolumn=100
 
 " HTML configurations
-au FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
+
+autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
 
 " Javascript configurations
 au BufNewFile,BufReadPost *.js setlocal shiftwidth=2 expandtab
@@ -206,7 +208,7 @@ au BufRead,BufNewFile *.json set filetype=json
 au BufNewFile,BufReadPost *.jinja* setlocal filetype=htmljinja
 
 " Get rid of search hilighting with ,/
-nnoremap <silent> <Leader>/ :nohlsearch<CR>
+nnoremap <silent> <Leader>] :nohlsearch<CR>
 nnoremap <silent> <Leader><Leader> :TComment<CR>
 
 " Enable all python highlightings
@@ -280,8 +282,8 @@ let g:tagbar_width = 30
 
 " crtl-p
 let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlPMixed'  " search anything (in files, buffers and MRU files at the same time.)
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard']
+let g:ctrlp_cmd = 'CtrlP'  " search anything (in files, buffers and MRU files at the same time.)
+" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard']
 let g:ctrlp_custom_ignore = '\v\~$|\.(o|swp|pyc|wav|mp3|ogg|blend)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
 let g:ctrlp_root_markers = ['.git']
 let g:ctrlp_working_path_mode = 'c' " search for nearest ancestor like .git, .hg, and the directory of the current file
@@ -294,7 +296,7 @@ let g:ctrlp_show_hidden = 0 " don't show me dotfiles
 let g:ctrlp_mruf_max = 250 " number of recently opened files
 nmap ; :CtrlPBuffer<CR>
 
-" Double rainbow - What does it mean!?
+" Double rainbow - What does it mean!? No Idea.
 let g:rainbow_active = 1
 
 set laststatus=2
@@ -325,10 +327,11 @@ let g:jedi#use_splits_not_buffers = "right"
 let g:pymode_lint_checkers = ['pyflakes', 'mccabe']
 
 " So this works with YCM
-let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 
+" Python configurations
 " jedi-vim + YCM
 au FileType python setlocal shiftwidth=4 expandtab tabstop=4 softtabstop=4
 au FileType python setlocal colorcolumn=100
@@ -340,19 +343,20 @@ au FileType python let g:jedi#popup_select_first = 0
 au FileType python let g:jedi#completions_enabled = 0
 au FileType python let g:jedi#completions_command = ""
 au FileType python let g:jedi#show_call_signatures = "1"
-au FileType python nmap <silent> <Leader>] :PymodeLint<CR>
+au FileType python let g:jedi#rename_command = "<leader>r"
+
+let g:pymode_run = 0
 
 " go mappings
 au filetype go setlocal colorcolumn=100 invlist
-au FileType go nmap <Leader>r <Plug>(go-run)
+au filetype go setlocal colorcolumn=
+au FileType go nmap <leader>r <Plug>(go-rename)
 au FileType go nmap <Leader>b <Plug>(go-build)
 au FileType go nmap <Leader>t <Plug>(go-test)
-au FileType go nmap <Leader>i <Plug>(go-import)
+au FileType go nmap <Leader><Leader><Leader> <Plug>(go-import)
 au FileType go nmap <Leader>gd <Plug>(go-doc)
-au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+au FileType go nmap <Leader>gv <Plug>(go-vet)
 au FileType go nmap <Leader>ds <Plug>(go-def-split)
-" Only change from standard defs on @fatih's page - to match
-
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 au FileType go setlocal noexpandtab
 au FileType go setlocal list listchars=tab:\ \ 
@@ -370,3 +374,6 @@ let g:tslime_always_current_window = 1
 vmap <C-c><C-c> <Plug>SendSelectionToTmux
 nmap <C-c><C-c> <Plug>NormalModeSendToTmux
 nmap <C-c>r <Plug>SetTmuxVars
+
+au CursorMovedI * if pumvisible() == 0|pclose|endif
+au InsertLeave * if pumvisible() == 0|pclose|endif
