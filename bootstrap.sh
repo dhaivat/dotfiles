@@ -62,7 +62,7 @@ ln -sv /usr/local/bin/vim /usr/local/bin/vi
 
 echo "Bootstrapping Vim Plugins"
 /usr/local/bin/vim  -c "BundleInstall" -c "q" -c "q"
-cd ~/.vim/bundle/YouCompleteMe && ./install.sh
+cd ~/.vim/bundle/YouCompleteMe && python ./install.py
 
 read -p "Changing default shell to zsh, OK? " yn
 case $yn in
