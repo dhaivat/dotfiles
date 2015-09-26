@@ -1,6 +1,7 @@
 ack
 autoconf
 automake
+cmake
 bsdmake
 byobu
 colordiff
