@@ -2,12 +2,12 @@ set encoding=utf-8
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-let g:vundle_lazy_load=1
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" let g:vundle_lazy_load=1
 
 " let Vundle manage Vundle
-Plugin 'gmarik/vundle'
+Plugin 'VundleVim/Vundle.vim'
 
 " Git
 Plugin 'tpope/vim-fugitive'
