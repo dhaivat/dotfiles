@@ -348,19 +348,22 @@ au FileType python let g:jedi#rename_command = "<leader>r"
 let g:pymode_run = 0
 
 " go mappings
+" this will stop syntastic from recompiling everything during each save
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+" format + auto imports
+au FileType go au BufWritePre <buffer> GoImports
 au filetype go setlocal colorcolumn=100 invlist
 au filetype go setlocal colorcolumn=
 au FileType go nmap <leader>r <Plug>(go-rename)
 au FileType go nmap <Leader>b <Plug>(go-build)
 au FileType go nmap <Leader>t <Plug>(go-test)
-au FileType go nmap <Leader><Leader><Leader> <Plug>(go-import)
+au FileType go nmap <Leader><Leader><Leader> <Plug>(go-build)
 au FileType go nmap <Leader>gd <Plug>(go-doc)
 au FileType go nmap <Leader>gv <Plug>(go-vet)
 au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 au FileType go setlocal noexpandtab
 au FileType go setlocal list listchars=tab:\ \ 
-au FileType go au BufWritePre <buffer> GoFmt
 
 au CursorMovedI * if pumvisible() == 0|pclose|endif
 au InsertLeave * if pumvisible() == 0|pclose|endif
