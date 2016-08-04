@@ -13,8 +13,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 
 " System
-Plugin 'ekalinin/Dockerfile.vim'
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'Shougo/neocomplete.vim'
 Plugin 'vim-scripts/Gist.vim'
 Plugin 'rking/ag.vim'
 Plugin 'tomtom/tcomment_vim'
@@ -29,14 +28,14 @@ Plugin 'bling/vim-airline'
 Plugin 'sjl/gundo.vim'
 
 " Syntax
+Plugin 'ekalinin/Dockerfile.vim'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'leshill/vim-json'
-Plugin 'puppetlabs/puppet-syntax-vim'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'itspriddle/vim-jquery'
 Plugin 'atourino/jinja.vim'
 Plugin 'ntpeters/vim-better-whitespace'
-Plugin 't9md/vim-chef'
 Plugin 'majutsushi/tagbar'
 
 " Python
@@ -52,15 +51,18 @@ Plugin 'fatih/vim-go'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-endwise'
 
-" Pig
-Plugin 'motus/pig.vim'
-
 " Fun, but not useful
 Plugin 'flazz/vim-colorschemes'
 Plugin 'skammer/vim-css-color'
 
 " Tmux + Repl
 Plugin 'jgdavey/tslime.vim'
+
+" Productivity
+Plugin 'jceb/vim-orgmode'
+Plugin 'vim-scripts/utl.vim'
+Plugin 'aklt/plantuml-syntax'
+Plugin 'tpope/vim-speeddating'
 
 " Required after vundle plugin definitions
 call vundle#end()            " required
@@ -162,7 +164,7 @@ nnoremap <C-H> <C-W><C-H>
 " iunmap <C-Space>
 " Mapping to C-@ for mac because iTerm2 and Terminal interprete C-Space as C-@
 " thank you - http://stackoverflow.com/questions/7722177/how-do-i-map-ctrl-x-ctrl-o-to-ctrl-space-in-terminal-vim
-inoremap <C-@> <C-x><C-o>
+" inoremap <C-@> <C-x><C-o>
 " SuperTab will use C-@ as well, works like a charm
 
 "
@@ -327,7 +329,7 @@ let g:jedi#use_splits_not_buffers = "right"
 let g:pymode_lint_checkers = ['pyflakes', 'mccabe']
 
 " So this works with YCM
-let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 
@@ -349,9 +351,11 @@ let g:pymode_run = 0
 
 " go mappings
 " this will stop syntastic from recompiling everything during each save
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_go_checkers = ['golint' ] " , 'govet', 'errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+let g:go_list_type = "quickfix"
 " format + auto imports
-au FileType go au BufWritePre <buffer> GoImports
+" au FileType go au BufWritePre <buffer> GoImports
 au filetype go setlocal colorcolumn=100 invlist
 au filetype go setlocal colorcolumn=
 au FileType go nmap <leader>r <Plug>(go-rename)
@@ -362,6 +366,7 @@ au FileType go nmap <Leader>gd <Plug>(go-doc)
 au FileType go nmap <Leader>gv <Plug>(go-vet)
 au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+au FileType go nmap <Leader>d <Plug>(go-def-vertical)
 au FileType go setlocal noexpandtab
 au FileType go setlocal list listchars=tab:\ \ 
 
@@ -380,3 +385,62 @@ nmap <C-c>r <Plug>SetTmuxVars
 
 au CursorMovedI * if pumvisible() == 0|pclose|endif
 au InsertLeave * if pumvisible() == 0|pclose|endif
+
+"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif

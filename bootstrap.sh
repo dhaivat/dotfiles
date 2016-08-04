@@ -1,6 +1,7 @@
 #!/bin/bash
 
 git clone --recursive git://github.com/ceocoder/dotfiles.git ~/.dotfiles && echo "Cloned dotfiles" || echo "Looks like dotfiles exist"
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d || echo "~/.emacs.d exists - move it and reclone spacemacs"
 
 if [[ `uname` == 'Darwin' ]]; then
     echo "Mac OS X detected: installing homebrew"
@@ -58,6 +59,7 @@ ln -sv $PWD/tmux/tmux.conf $HOME/.tmux.conf
 ln -sv $PWD/screenrc $HOME/.screenrc
 ln -sv $PWD/vim $HOME/.vim
 ln -sv $PWD/vimrc $HOME/.vimrc
+ln -sv $PWD/sapcemacs $HOME/.spacemacs
 ln -sv /usr/local/bin/vim /usr/local/bin/vi
 
 echo "Bootstrapping Vim Plugins"
