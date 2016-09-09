@@ -29,10 +29,11 @@ values."
      git
      markdown
      org
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+     (shell :variables
+            shell-default-height 30
+            shell-default-position 'bottom)
      ;; spell-checking
+     plantuml
      syntax-checking
      version-control
      go
@@ -45,7 +46,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(puml-mode)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -245,8 +246,7 @@ user code here.  The exception is org related code, which should be placed in
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
-  (setq org-plantuml-jar-path
-        (expand-file-name "~/plantuml.jar"))
+  (setq org-plantuml-jar-path "/usr/local/lib/plantuml.jar")
   (setq helm-locate-fuzzy-match nil)
   (setq golden-ratio-mode t)
   (setq gofmt-command "goimports")
@@ -258,6 +258,11 @@ layers configuration. You are free to put any user code."
           ('windows-nt "es %s")
           ('darwin "mdfind -name %s %s")
           (t "locate %s")))
+  (setenv "WORKON_HOME"
+          (concat
+           (getenv "HOME")
+           "/.venvs/webapp"))
+  (set-default 'truncate-lines t)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
