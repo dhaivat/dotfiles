@@ -22,8 +22,6 @@ Plugin 'scrooloose/syntastic'
 Plugin 'kien/ctrlp.vim'
 Plugin 'xolox/vim-notes'
 Plugin 'xolox/vim-misc'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
 Plugin 'bling/vim-airline'
 Plugin 'sjl/gundo.vim'
 

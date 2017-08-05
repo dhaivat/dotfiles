@@ -23,12 +23,16 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     auto-completion
+     html
+     (auto-completion :variables
+                      auto-completion-enable-help-tooltip t
+                      auto-completion-enable-snippets-in-popup t)
      better-defaults
      emacs-lisp
      git
      markdown
-     org
+     (org :variables
+          org-enable-github-support t)
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -46,7 +50,9 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(puml-mode)
+   dotspacemacs-additional-packages '(
+                                      puml-mode
+                                     )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -185,7 +191,7 @@ values."
    dotspacemacs-loading-progress-bar t
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup nil
+   dotspacemacs-fullscreen-at-startup t
    ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
    dotspacemacs-fullscreen-use-non-native nil
@@ -246,6 +252,7 @@ user code here.  The exception is org related code, which should be placed in
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+  (load-file "~/.private.el")
   (setq org-plantuml-jar-path "/usr/local/lib/plantuml.jar")
   (setq helm-locate-fuzzy-match nil)
   (setq golden-ratio-mode t)
@@ -263,7 +270,42 @@ layers configuration. You are free to put any user code."
            (getenv "HOME")
            "/.venvs/webapp"))
   (set-default 'truncate-lines t)
+  (setq golden-ratio-mode t)
+  ;; Define the location of the file to hold tasks
+  (setq org-default-notes-file (concat (getenv "HOME") "/Dropbox/todo-list.org"))
+
+  ;; Define a kanban style set of stages for todo tasks
+  (setq org-todo-keywords
+        '((sequence "TODO" "DOING" "BLOCKED" "REVIEW" "|" "DONE" "ARCHIVED")))
+
+  ;; Setting Colours (faces) for todo states to give clearer view of work
+  (setq org-todo-keyword-faces
+        '(("TODO" . org-warning)
+          ("DOING" . "yellow")
+          ("BLOCKED" . "red")
+          ("REVIEW" . "orange")
+          ("DONE" . "green")
+          ("ARCHIVED" .  "blue")))
+
+  ;; Progress Logging
+  ;; When a TODO item enters DONE, add a CLOSED: property with current date-time stamp
+  (setq org-log-done 'time)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-trello-current-prefix-keybinding "C-c o")
+ '(package-selected-packages
+   (quote
+    (yapfify uuidgen py-isort pug-mode spinner ox-gfm osx-dictionary dash-functional request-deferred deferred org-projectile org alert log4e gntp org-download mwim live-py-mode link-hint parent-mode request haml-mode gitignore-mode git-link fringe-helper git-gutter+ epl flx eyebrowse evil-visual-mark-mode evil-unimpaired magit-popup evil-ediff anzu highlight eshell-z dumb-jump diminish darkokai-theme web-completion-data pos-tip column-enforce-mode bind-map bind-key yasnippet packed pythonic dash s avy async popup zenburn-theme ws-butler web-mode tao-theme spaceline persp-mode organic-green-theme org-plus-contrib open-junk-file omtose-phellack-theme neotree monokai-theme moe-theme material-theme leuven-theme indent-guide help-fns+ helm-themes helm-pydoc helm-projectile helm-descbinds helm-ag gruvbox-theme grandshell-theme google-translate evil-surround evil-search-highlight-persist evil-matchit evil-iedit-state iedit diff-hl darktooth-theme color-theme-sanityinc-tomorrow badwolf-theme ample-theme ace-link ace-jump-helm-line auto-complete anaconda-mode smartparens flycheck git-gutter go-mode company projectile helm helm-core markdown-mode magit git-commit with-editor hydra f package-build which-key evil spacemacs-theme zonokai-theme zen-and-art-theme xterm-color window-numbering volatile-highlights vi-tilde-fringe use-package undo-tree underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme toc-org tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme stekene-theme spacegray-theme soothe-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smooth-scrolling smeargle slim-mode shell-pop seti-theme scss-mode sass-mode reverse-theme reveal-in-osx-finder restart-emacs rainbow-delimiters railscasts-theme quelpa pyvenv pytest pyenv-mode py-yapf purple-haze-theme puml-mode professional-theme powerline popwin planet-theme pkg-info pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme pcre2el pbcopy pastels-on-dark-theme paradox page-break-lines osx-trash orgit org-trello org-repo-todo org-present org-pomodoro org-bullets oldlace-theme occidental-theme obsidian-theme noctilux-theme niflheim-theme naquadah-theme mustang-theme multi-term move-text monochrome-theme molokai-theme mmm-mode minimal-theme markdown-toc majapahit-theme magit-gitflow macrostep lush-theme lorem-ipsum linum-relative light-soap-theme less-css-mode launchctl jbeans-theme jazz-theme jade-mode ir-black-theme inkpot-theme info+ ido-vertical-mode hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-swoop helm-mode-manager helm-make helm-gitignore helm-flx helm-css-scss helm-company helm-c-yasnippet hc-zenburn-theme gruber-darker-theme goto-chg gotham-theme golden-ratio go-eldoc gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md gandalf-theme flycheck-pos-tip flx-ido flatui-theme flatland-theme firebelly-theme fill-column-indicator farmhouse-theme fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-numbers evil-nerd-commenter evil-mc evil-magit evil-lisp-state evil-indent-plus evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu espresso-theme eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dracula-theme django-theme define-word darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme company-web company-statistics company-quickhelp company-go company-anaconda colorsarenice-theme color-theme-sanityinc-solarized clues-theme clean-aindent-mode cherry-blossom-theme busybee-theme buffer-move bubbleberry-theme bracketed-paste birds-of-paradise-plus-theme auto-yasnippet auto-highlight-symbol auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ac-ispell))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
