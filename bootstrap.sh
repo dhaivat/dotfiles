@@ -1,23 +1,23 @@
 #!/bin/bash
 
-git clone --recursive git://github.com/ceocoder/dotfiles.git ~/.dotfiles && echo "Cloned dotfiles" || echo "Looks like dotfiles exist"
-git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d || echo "~/.emacs.d exists - move it and reclone spacemacs"
+git clone --recursive git://github.com/ceocoder/dotfiles.git $HOME/.dotfiles && echo "Cloned dotfiles" || echo "Looks like dotfiles exist"
+git clone https://github.com/syl20bnr/spacemacs $HOME/.emacs.d || echo "$HOME/.emacs.d exists - move it and reclone spacemacs"
 
-if [[ `uname` == 'Darwin' ]]; then
+if [[ $(uname) == 'Darwin' ]]; then
     echo "Mac OS X detected: installing homebrew"
-    read -p "Mac OS X detected: install homebrew and some useful packages? " b_yn
+    read -rp "Mac OS X detected: install homebrew and some useful packages? " b_yn
     case $b_yn in
         [Yy]* )
             which brew || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
             brew tap caskroom/cask
             brew install brew-cask
-            while read line
+            while read -r line
             do
-                brew install $line
+                brew install "$line"
             done < frozen.brew
-            while read line
+            while read -r line
             do
-                HOMEBREW_CASK_OPTS="--appdir=/Applications" brew cask install $line
+                HOMEBREW_CASK_OPTS="--appdir=/Applications" brew cask install "${line}"
             done < frozen.cask
             ;;
         [Nn]* )
@@ -25,14 +25,14 @@ if [[ `uname` == 'Darwin' ]]; then
             ;;
     esac
 else
-    read -p "Install tmux, zsh, vim? " t_yn
+    read -rp "Install tmux, zsh, vim? " t_yn
     case $t_yn in
         [Yy]* )
-            case `lsb_release -i | cut -d':' -f2 | tr -d '\t'` in
+            case $(lsb_release -i | cut -d':' -f2 | tr -d '\t') in
                 'CentOS')
                     sudo yum install tmux zsh vim
                     ;;
-                'Ubuntu')
+                'Debian'|'Ubuntu')
                     sudo apt-get install tmux zsh vim
                     ;;
             esac
@@ -54,7 +54,8 @@ for i in $HOME/.tmux $HOME/.tmux.conf $HOME/.zshrc $HOME/.screenrc $HOME/.vim $H
     fi
 done
 
-ln -sv $PWD/oh-my-zsh/templates/zshrc.zsh-template $HOME/.zshrc
+ln -sv $PWD/zshrc $HOME/.zshrc
+ln -sf $PWF/tmux $HOME/.tmux
 ln -sv $PWD/tmux/tmux.conf $HOME/.tmux.conf
 ln -sv $PWD/screenrc $HOME/.screenrc
 ln -sv $PWD/vim $HOME/.vim
@@ -66,9 +67,9 @@ echo "Bootstrapping Vim Plugins"
 /usr/local/bin/vim  -c "BundleInstall" -c "q" -c "q"
 cd ~/.vim/bundle/YouCompleteMe && python ./install.py
 
-read -p "Changing default shell to zsh, OK? " yn
+read -rp "Changing default shell to zsh, OK? " yn
 case $yn in
-    [Yy]* ) chsh -s $(which zsh); ;;
+    [Yy]* ) chsh -s "$(which zsh)"; ;;
     [Nn]* ) echo "Ok"; ;;
 esac
 
