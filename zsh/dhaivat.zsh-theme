@@ -2,7 +2,7 @@ RPROMPT='%{$fg_bold[green]%}%(?,:),%{$fg_bold[red]%}:()%{$fg_bold[cyan]%}$(git_p
 
 OS_TYPE=$(uname -s)
 OS_TYPE='%F{blue}'${OS_TYPE:0:1}'%F{magenta}:%f'
-H_U='%m]'
+H_U='%m%F{green}]'
 
 PROMPT='%(!.%{$fg_bold[red]%}.%{$fg_bold[green]%}[$OS_TYPE%n@)$H_U %{$fg_bold[magenta]%}%#%{$reset_color%} '
 

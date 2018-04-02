@@ -4,7 +4,7 @@
 	branch = master
 [submodule "tmux"]
 	path = tmux
-	url = https://github.com/ceocoder/tmuxrc.git
+	url = git@github.com:ceocoder/tmuxrc.git
 	branch = master
 [submodule "vim/bundle/Vundle.vim"]
 	path = vim/bundle/Vundle.vim
