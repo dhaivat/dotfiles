@@ -54,17 +54,16 @@ for i in $HOME/.tmux $HOME/.tmux.conf $HOME/.zshrc $HOME/.screenrc $HOME/.vim $H
     fi
 done
 
-ln -sv $PWD/zshrc $HOME/.zshrc
-ln -sf $PWF/tmux $HOME/.tmux
-ln -sv $PWD/tmux/tmux.conf $HOME/.tmux.conf
-ln -sv $PWD/screenrc $HOME/.screenrc
-ln -sv $PWD/vim $HOME/.vim
-ln -sv $PWD/vimrc $HOME/.vimrc
-ln -sv $PWD/spacemacs $HOME/.spacemacs
-ln -sv /usr/local/bin/vim /usr/local/bin/vi
+ln -sfv ${PWD}/zshrc ${HOME}/.zshrc
+ln -sfv ${PWD}/tmux ${HOME}/.tmux
+ln -sfv ${PWD}/tmux/tmux.conf ${HOME}/.tmux.conf
+ln -sfv ${PWD}/screenrc ${HOME}/.screenrc
+ln -sfv ${PWD}/vim ${HOME}/.vim
+ln -sfv ${PWD}/vimrc ${HOME}/.vimrc
+ln -sfv ${PWD}/spacemacs ${HOME}/.spacemacs
+ln -sfv /usr/local/bin/vim /usr/local/bin/vi
 
-echo "Bootstrapping Vim Plugins"
-/usr/local/bin/vim  -c "BundleInstall" -c "q" -c "q"
+echo "Bootstrapping Vim Plugins" /usr/local/bin/vim  -c "BundleInstall" -c "q" -c "q"
 cd ~/.vim/bundle/YouCompleteMe && python ./install.py
 
 read -rp "Changing default shell to zsh, OK? " yn
@@ -73,11 +72,13 @@ case $yn in
     [Nn]* ) echo "Ok"; ;;
 esac
 
-echo "Installing Monaco Powerline font - click install"
-open Monaco-Powerline.otf
+if [[ $(uname) == 'Darwin' ]]; then
+    echo "Installing Monaco Powerline font - click install"
+    open Monaco-Powerline.otf
 
-echo "Installing custom iTerm2 color theme"
-open iterm2.itermcolors
+    echo "Installing custom iTerm2 color theme"
+    open iterm2.itermcolors
+fi
 
 echo -e "p.s. I've tested this on tmux 1.8,
 if you see errors like,

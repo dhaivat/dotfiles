@@ -6,11 +6,6 @@ bsdmake
 byobu
 colordiff
 coreutils
-csshx
-ctags
-cowsay
-ec2-api-tools
-fortune
 gettext
 glib
 gnu-getopt
@@ -38,3 +33,4 @@ vimpager
 wget
 xclip
 xz
+yajl
