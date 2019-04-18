@@ -130,7 +130,13 @@ compctl -F _complete_ssh_hosts rpup
 autoload -U edit-command-line; zle -N edit-command-line; bindkey '^X^e' edit-command-line;
 
 unalias gl
-[ -f /usr/local/bin/z.sh ] && . /usr/local/bin/z.sh
-[ -f '/usr/local/google-cloud-sdk/completion.zsh.inc' ] && . '/usr/local/google-cloud-sdk/completion.zsh.inc'
-[ -f '/usr/lib/google-cloud-sdk/path.zsh.inc' ] && . '/usr/lib/google-cloud-sdk/path.zsh.inc'
-[ -f '/usr/lib/google-cloud-sdk/completion.zsh.inc' ] && . '/usr/lib/google-cloud-sdk/completion.zsh.inc'
+[ -f /usr/local/etc/profile.d/z.sh ] && . /usr/local/etc/profile.d/z.sh
+export PATH="/usr/local/opt/thrift@0.9/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/usr/local/google/google-cloud-sdk/path.zsh.inc' ]; then source '/usr/local/google/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/usr/local/google/google-cloud-sdk/completion.zsh.inc' ]; then source '/usr/local/google/google-cloud-sdk/completion.zsh.inc'; fi
+. /usr/local/etc/profile.d/z.sh
+eval "$(direnv hook zsh)"
