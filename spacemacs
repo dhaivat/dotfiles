@@ -459,9 +459,6 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   )
 
 (defun dotspacemacs/user-load ()
-- Note taken on [2020-03-03 Tue 14:35] \\
-  FOO
-  adding entry
   "Library to load while dumping.
 This function is called only while dumping Spacemacs configuration. You can
 `require' or `load' the libraries of your choice that will be included in the
@@ -478,6 +475,7 @@ before packages are loaded."
   (with-eval-after-load 'org
     (dp/configure-org-mode)
     )
+  (spacemacs/set-leader-keys "\\" 'helm-org-rifle)
   )
 
 ;; https://github.com/ryane/spacemacs-config/blob/master/.spacemacs
@@ -488,7 +486,11 @@ before packages are loaded."
   (add-hook 'org-mode-hook 'flyspell-mode)
   ;; organizer directory
   (setq org-directory "~/Dropbox/notes/org/")
+  (setq org-agenda-files (list org-directory))
   (setq org-default-notes-file (concat org-directory "notes.org"))
+  (setq org-11-file (concat org-directory "one-on-one.org"))
+  (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+
 
   ;; capture
   (setq org-capture-templates
@@ -496,7 +498,7 @@ before packages are loaded."
                  "* TODO %^{PROMPT} \n%U\n%a\n %?")
                 ("m" "meeting" entry (file+headline org-default-notes-file "Meetings")
                  "* MEETING with %^{PROMPT} :MEETING: \n%U\n %?")
-                ("o" "1:1" entry (file+headline org-default-notes-file "1:1s")
+                ("o" "1:1" entry (file+headline org-11-file "1:1s")
                  "* %^{PROMPT} <> dp sync on %t :SYNC: \n%U\n %? \n")
                 ("i" "idea" entry (file+headline org-default-notes-file "Ideas")
                  "* %? :IDEA: \n%U\n%a\n")
