@@ -486,6 +486,10 @@ before packages are loaded."
 
   (add-hook 'org-mode-hook 'turn-on-auto-fill)
   (add-hook 'org-mode-hook 'flyspell-mode)
+
+  ;; https://emacs.stackexchange.com/a/23765
+  (add-hook 'org-capture-mode-hook 'evil-insert-state)
+
   ;; organizer directory
   (setq org-directory "~/Dropbox/notes/org/")
   (setq org-default-notes-file (concat org-directory "notes.org"))
@@ -493,11 +497,11 @@ before packages are loaded."
   ;; capture
   (setq org-capture-templates
         (quote (("t" "todo" entry (file+headline org-default-notes-file "Tasks")
-                 "* TODO %^{PROMPT} \n%U\n%a\n %?")
+                 "* TODO %^{PROMPT} \n%U\n%a\n%?\n")
                 ("m" "meeting" entry (file+headline org-default-notes-file "Meetings")
-                 "* MEETING with %^{PROMPT} :MEETING: \n%U\n %?")
+                 "* MEETING with %^{PROMPT} :MEETING: \n%U\n %?\n")
                 ("o" "1:1" entry (file+headline org-default-notes-file "1:1s")
-                 "* %^{PROMPT} <> dp sync on %t :SYNC: \n%U\n %? \n")
+                 "* %^{PROMPT} <> dp sync on %t :SYNC: \n%U\n %?\n")
                 ("i" "idea" entry (file+headline org-default-notes-file "Ideas")
                  "* %? :IDEA: \n%U\n%a\n")
                 ("n" "note" entry (file+headline org-default-notes-file "Notes")
