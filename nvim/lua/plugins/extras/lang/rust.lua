@@ -19,6 +19,18 @@ return {
         end,
         desc = "Cargo Run In Togg",
       },
+      {
+        "<leader>nq",
+        mode = { "n" },
+        function()
+          local term = require("toggleterm.terminal").Terminal:new({
+            cmd = "e ~/Nextcloud/notes/brain/learn.md",
+            direction = "float",
+          })
+          term:toggle()
+        end,
+        desc = "Open note",
+      },
     },
   },
   --{

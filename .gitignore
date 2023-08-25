@@ -1,4 +1,0 @@
-*.py[co]
-*.plist
-vim/.netrwhist
-vim/bundle/*
